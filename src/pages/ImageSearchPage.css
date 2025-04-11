@@ -1,0 +1,97 @@
+.image-search-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.camera-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.camera-instructions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 48px;
+}
+
+.camera-icon {
+  font-size: 64px;
+  color: #5f6368;
+  margin-bottom: 16px;
+}
+
+.camera-instructions h2 {
+  font-size: 20px;
+  font-weight: 400;
+  margin: 0 0 8px 0;
+}
+
+.camera-instructions p {
+  font-size: 14px;
+  margin: 0;
+}
+
+.image-preview-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #000;
+}
+
+.captured-image {
+  width: 100%;
+  height: auto;
+  max-height: calc(100% - 80px);
+  object-fit: contain;
+  flex: 1;
+}
+
+.crop-overlay {
+  position: absolute;
+  border: 2px solid #4285f4;
+  background-color: rgba(66, 133, 244, 0.2);
+  pointer-events: none;
+}
+
+.image-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: #fff;
+}
+
+.crop-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: #fff;
+}
+
+.action-button {
+  --color: #5f6368;
+  font-size: 14px;
+}
+
+.search-button {
+  --background: #4285f4;
+  --color: #fff;
+  --border-radius: 24px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  font-size: 14px;
+}
+
+.crop-instructions {
+  font-size: 14px;
+}
