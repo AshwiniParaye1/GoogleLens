@@ -1,30 +1,13 @@
 "use client";
 
-import {
-  IonButton,
-  IonButtons,
-  IonCard,
-  IonCardContent,
-  IonCol,
-  IonContent,
-  IonGrid,
-  IonHeader,
-  IonIcon,
-  IonPage,
-  IonRow,
-  IonSearchbar,
-  IonToolbar
-} from "@ionic/react";
+import { IonButton, IonContent, IonIcon, IonPage } from "@ionic/react";
 import {
   cameraOutline,
-  compassOutline,
-  imageOutline,
-  mailOutline,
+  homeOutline,
+  menuOutline,
   micOutline,
-  newspaperOutline,
-  personCircleOutline,
-  searchOutline,
-  videocamOutline
+  notificationsOutline,
+  timeOutline
 } from "ionicons/icons";
 import type React from "react";
 import { useState } from "react";
@@ -46,67 +29,70 @@ const HomePage: React.FC = () => {
     history.push("/image-search");
   };
 
-  const handleMicSearch = () => {
-    // In a real app, we would implement speech recognition here
-    alert("Microphone functionality would be implemented here");
+  const handleVoiceSearch = () => {
+    history.push("/voice-search");
+  };
+
+  const handleAccountClick = () => {
+    history.push("/account");
   };
 
   // Mock data for feed items
   const feedItems = [
     {
       id: 1,
-      title: "Google introduces new AI features",
-      source: "Tech News",
-      time: "2 hours ago",
-      image: "/placeholder.svg?height=100&width=100"
-    },
-    {
-      id: 2,
-      title: "How to optimize your React applications",
-      source: "Dev Community",
-      time: "4 hours ago",
-      image: "/placeholder.svg?height=100&width=100"
-    },
-    {
-      id: 3,
-      title: "The future of mobile development with Capacitor",
-      source: "Ionic Blog",
-      time: "1 day ago",
-      image: "/placeholder.svg?height=100&width=100"
+      title:
+        "This superstar was Ratan Tata's closest friend, shared same room, went for picnics, listened songs together",
+      image:
+        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-11%20at%206.16.26%E2%80%AFPM-EwUhCzRgH6QukUK3l1t4oqNuDnJGeY.png"
     }
   ];
 
   return (
-    <IonPage>
-      <IonHeader className="ion-no-border">
-        <IonToolbar>
-          <IonButtons slot="end">
-            <IonButton>
-              <IonIcon icon={personCircleOutline} className="profile-icon" />
-            </IonButton>
-          </IonButtons>
-        </IonToolbar>
-      </IonHeader>
-
+    <IonPage className="dark-theme">
       <IonContent fullscreen>
         <div className="home-container">
+          <div className="top-bar">
+            <div className="beaker-icon">
+              <span>⚗️</span>
+            </div>
+            <div className="search-widget">
+              <div className="google-icon">G</div>
+              <span>Search</span>
+              <div className="star-icon">★</div>
+            </div>
+            <div className="avatar-container" onClick={handleAccountClick}>
+              <div className="avatar">A</div>
+            </div>
+          </div>
+
           <div className="logo-container">
-            <img src="/google-logo.png" alt="Google" className="google-logo" />
+            <div className="google-logo">Google</div>
           </div>
 
           <form onSubmit={handleSearch} className="search-form">
             <div className="search-container">
-              <IonSearchbar
+              <div className="search-icon">🔍</div>
+              <input
+                type="text"
                 value={searchText}
-                onIonChange={(e) => setSearchText(e.detail.value!)}
-                placeholder="Search or type URL"
-                className="google-searchbar"
+                onChange={(e) => setSearchText(e.target.value)}
+                placeholder="Search"
+                className="search-input"
               />
               <div className="search-icons">
-                <IonButton fill="clear" onClick={handleMicSearch}>
+                <IonButton
+                  fill="clear"
+                  onClick={handleVoiceSearch}
+                  className="mic-button"
+                >
                   <IonIcon icon={micOutline} />
                 </IonButton>
-                <IonButton fill="clear" onClick={handleImageSearch}>
+                <IonButton
+                  fill="clear"
+                  onClick={handleImageSearch}
+                  className="lens-button"
+                >
                   <IonIcon icon={cameraOutline} />
                 </IonButton>
               </div>
@@ -114,101 +100,71 @@ const HomePage: React.FC = () => {
           </form>
 
           <div className="quick-access">
-            <IonGrid>
-              <IonRow>
-                <IonCol size="3">
-                  <div className="quick-access-item">
-                    <div className="quick-icon">
-                      <IonIcon icon={compassOutline} />
-                    </div>
-                    <div className="quick-label">Discover</div>
-                  </div>
-                </IonCol>
-                <IonCol size="3">
-                  <div className="quick-access-item">
-                    <div className="quick-icon">
-                      <IonIcon icon={searchOutline} />
-                    </div>
-                    <div className="quick-label">Search</div>
-                  </div>
-                </IonCol>
-                <IonCol size="3">
-                  <div className="quick-access-item">
-                    <div className="quick-icon">
-                      <IonIcon icon={newspaperOutline} />
-                    </div>
-                    <div className="quick-label">News</div>
-                  </div>
-                </IonCol>
-                <IonCol size="3">
-                  <div className="quick-access-item">
-                    <div className="quick-icon">
-                      <IonIcon icon={mailOutline} />
-                    </div>
-                    <div className="quick-label">Gmail</div>
-                  </div>
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol size="3">
-                  <div className="quick-access-item">
-                    <div className="quick-icon">
-                      <IonIcon icon={imageOutline} />
-                    </div>
-                    <div className="quick-label">Images</div>
-                  </div>
-                </IonCol>
-                <IonCol size="3">
-                  <div className="quick-access-item">
-                    <div className="quick-icon">
-                      <IonIcon icon={videocamOutline} />
-                    </div>
-                    <div className="quick-label">Videos</div>
-                  </div>
-                </IonCol>
-                <IonCol size="3">
-                  <div className="quick-access-item">
-                    <div className="quick-icon">
-                      <IonIcon icon={compassOutline} />
-                    </div>
-                    <div className="quick-label">Maps</div>
-                  </div>
-                </IonCol>
-                <IonCol size="3">
-                  <div className="quick-access-item">
-                    <div className="quick-icon">
-                      <IonIcon icon={compassOutline} />
-                    </div>
-                    <div className="quick-label">More</div>
-                  </div>
-                </IonCol>
-              </IonRow>
-            </IonGrid>
+            <div className="quick-access-row">
+              <div className="quick-access-item gold">
+                <div className="quick-icon">
+                  <span className="icon-text">📷</span>
+                </div>
+              </div>
+              <div className="quick-access-item blue">
+                <div className="quick-icon">
+                  <span className="icon-text">🔤</span>
+                </div>
+              </div>
+              <div className="quick-access-item green">
+                <div className="quick-icon">
+                  <span className="icon-text">🎓</span>
+                </div>
+              </div>
+              <div className="quick-access-item red">
+                <div className="quick-icon">
+                  <span className="icon-text">🎵</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="weather-widgets">
+            <div className="weather-widget">
+              <div className="location">Gurugram</div>
+              <div className="temp-container">
+                <div className="temperature">30°</div>
+                <div className="moon-icon">🌙</div>
+              </div>
+            </div>
+            <div className="air-quality-widget">
+              <div className="air-quality-title">Air quality · 170</div>
+              <div className="air-quality-status">
+                <span>Moderate</span>
+                <span className="air-icon">💨</span>
+              </div>
+            </div>
           </div>
 
           <div className="feed-container">
-            <h2 className="feed-title">For you</h2>
             {feedItems.map((item) => (
-              <IonCard key={item.id} className="feed-card">
-                <IonCardContent>
-                  <div className="feed-item">
-                    <div className="feed-content">
-                      <h3 className="feed-item-title">{item.title}</h3>
-                      <div className="feed-meta">
-                        <span className="feed-source">{item.source}</span>
-                        <span className="feed-time">{item.time}</span>
-                      </div>
-                    </div>
-                    <div className="feed-image">
-                      <img
-                        src={item.image || "/placeholder.svg"}
-                        alt={item.title}
-                      />
-                    </div>
-                  </div>
-                </IonCardContent>
-              </IonCard>
+              <div key={item.id} className="feed-card">
+                <img src="/ratan-tata-img.jpeg" alt="" className="feed-image" />
+                <div className="feed-content">
+                  <div className="feed-title">{item.title}</div>
+                </div>
+              </div>
             ))}
+          </div>
+
+          <div className="bottom-nav">
+            <div className="nav-item active">
+              <IonIcon icon={homeOutline} />
+            </div>
+            <div className="nav-item">
+              <IonIcon icon={timeOutline} />
+            </div>
+            <div className="nav-item">
+              <IonIcon icon={notificationsOutline} />
+            </div>
+            <div className="nav-item">
+              <IonIcon icon={menuOutline} />
+            </div>
           </div>
         </div>
       </IonContent>
