@@ -49,7 +49,7 @@ const LensResultsView = () => {
         <div className="flex items-center flex-1 bg-[#303134] rounded-full px-3 py-2">
           <div className="flex items-center gap-2 flex-1 border-r border-gray-600 mr-2">
             <div className="w-8 h-8 flex items-center justify-center">
-              <img src="/public/google.png" alt="Google" className="w-6 h-6" />
+              <img src="/google.png" alt="Google" className="w-6 h-6" />
             </div>
             <div className="flex items-center gap-2 flex-1">
               <div className="w-8 h-8 rounded-md overflow-hidden">

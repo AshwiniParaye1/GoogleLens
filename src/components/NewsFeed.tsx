@@ -4,7 +4,7 @@ const NewsFeed = () => {
   return (
     <div className="news-card mt-4 overflow-hidden">
       <img
-        src="/public/ratan-tata.jpg"
+        src="/ratan-tata.jpg"
         alt="News image"
         className="w-full h-48 object-cover rounded-t-xl"
       />
