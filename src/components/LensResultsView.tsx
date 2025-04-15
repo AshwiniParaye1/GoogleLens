@@ -72,7 +72,7 @@ const LensResultsView = () => {
         {tabs.map((tab) => (
           <button
             key={tab.id}
-            className={`py-3 px-2 mr-4 text-sm font-medium ${
+            className={`py-3 px-[0.5px] mr-4 text-sm font-medium ${
               activeTab === tab.id
                 ? "text-white border-b-2 border-white"
                 : "text-gray-400"
