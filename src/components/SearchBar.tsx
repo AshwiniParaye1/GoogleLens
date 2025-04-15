@@ -1,3 +1,5 @@
+//src/components/SearchBar.tsx
+
 import { useAppContext } from "@/context/AppContext";
 import { useToast } from "@/hooks/use-toast";
 import { Mic, Search } from "lucide-react";

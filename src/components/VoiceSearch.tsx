@@ -1,3 +1,5 @@
+//src/components/VoiceSearch.tsx
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useAppContext } from "@/context/AppContext";
 import { ArrowLeft, Globe } from "lucide-react";
@@ -96,6 +98,7 @@ const VoiceSearch = ({ isOpen, onClose }: VoiceSearchProps) => {
         className="h-screen bg-[#202124] text-white border-none p-0"
       >
         <div className="h-full flex flex-col">
+          {/* Top bar */}
           <div className="flex justify-between p-4">
             <button onClick={onClose} className="text-white">
               <ArrowLeft size={24} />
@@ -103,10 +106,10 @@ const VoiceSearch = ({ isOpen, onClose }: VoiceSearchProps) => {
             <Globe size={24} />
           </div>
 
-          <div className="flex-1 flex flex-col items-center justify-center -mt-20">
-            <h2 className="text-2xl mb-20 text-gray-400 font-light">
-              Speak now
-            </h2>
+          {/* Center content */}
+          <div className="flex-1 flex flex-col justify-between items-center px-4 py-16">
+            <h2 className="text-2xl text-gray-400 font-light">Speak now</h2>
+
             <div className="flex gap-3">
               {dots.map((color, index) => (
                 <div
@@ -116,9 +119,7 @@ const VoiceSearch = ({ isOpen, onClose }: VoiceSearchProps) => {
                 />
               ))}
             </div>
-          </div>
 
-          <div className="p-4 flex justify-center mb-20">
             <button className="bg-[#1c1d1f] border border-gray-500 text-gray-400 px-6 py-3 rounded-full text-md flex items-center gap-2">
               <MdOutlineMusicNote size={20} />
               <span>Search a song</span>
