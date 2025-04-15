@@ -1,3 +1,5 @@
+//src/components/Header.tsx
+
 import { FlaskConical, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import AccountMenu from "./AccountMenu";
