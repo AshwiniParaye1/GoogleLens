@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
@@ -14,49 +13,44 @@ import {
   User
 } from "lucide-react";
 
-const AccountMenu = () => {
+interface AccountMenuProps {
+  username: string;
+  email: string;
+}
+
+const AccountMenu = ({ username, email }: AccountMenuProps) => {
+  const initial = username.charAt(0).toUpperCase();
+
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Avatar className="w-8 h-8 cursor-pointer">
-          <AvatarImage
-            src="/placeholder.svg"
-            alt="User Avatar"
-            className="object-cover"
-          />
-          <AvatarFallback>A</AvatarFallback>
-        </Avatar>
+        <div className="w-8 h-8 rounded-full bg-gray-400 text-white font-bold text-sm flex items-center justify-center cursor-pointer">
+          {initial}
+        </div>
       </SheetTrigger>
+
       <SheetContent
         side="bottom"
         className="bg-google-card text-white rounded-t-xl p-0 max-w-md mx-auto border-none h-auto overflow-hidden"
       >
         <div className="p-3 space-y-3">
-          {/* Header with Google logo */}
           <div className="flex items-center justify-center">
             <h2 className="text-xl font-bold">Google</h2>
           </div>
 
-          {/* User profile section */}
           <div className="flex items-center justify-between px-3">
             <div className="flex items-center gap-3">
-              <Avatar className="w-10 h-10">
-                <AvatarImage
-                  src="/placeholder.svg"
-                  alt="User Avatar"
-                  className="object-cover"
-                />
-                <AvatarFallback>A</AvatarFallback>
-              </Avatar>
+              <div className="w-10 h-10 rounded-full bg-gray-400 text-white font-bold text-sm flex items-center justify-center">
+                {initial}
+              </div>
               <div className="text-left">
-                <div className="font-medium text-sm">Guest User</div>
-                <div className="text-gray-400 text-xs">guest@example.com</div>
+                <div className="font-medium text-sm">{username}</div>
+                <div className="text-gray-400 text-xs">{email}</div>
               </div>
             </div>
             <ChevronDown className="text-gray-400" size={16} />
           </div>
 
-          {/* Manage account button */}
           <div className="flex justify-center mt-1 mb-1">
             <button className="border border-gray-600 text-white rounded-full py-1 px-4 text-xs">
               Manage your Google Account
@@ -66,21 +60,16 @@ const AccountMenu = () => {
 
         <Separator className="bg-gray-700" />
 
-        {/* Menu items */}
         <div className="py-1">
           <MenuItem icon={<Glasses size={16} />} label="Turn on Incognito" />
-
           <Separator className="bg-gray-700" />
-
           <MenuItem
             icon={<Clock size={16} />}
             label="Search history"
             rightLabel="Saving"
           />
           <MenuItem icon={null} label="Delete last 15 mins" indent />
-
           <Separator className="bg-gray-700" />
-
           <MenuItem icon={<Shield size={16} />} label="SafeSearch" />
           <MenuItem icon={<Package size={16} />} label="Interests" />
           <MenuItem icon={<Key size={16} />} label="Passwords" />
@@ -89,16 +78,13 @@ const AccountMenu = () => {
             icon={<Search size={16} />}
             label="Search personalisation"
           />
-
           <Separator className="bg-gray-700" />
-
           <MenuItem icon={<Settings size={16} />} label="Settings" />
           <MenuItem icon={<HelpCircle size={16} />} label="Help and feedback" />
         </div>
 
         <Separator className="bg-gray-700" />
 
-        {/* Footer */}
         <div className="p-3 flex justify-center items-center gap-2 text-xs text-gray-400">
           <span>Privacy Policy</span>
           <span className="text-gray-600">•</span>

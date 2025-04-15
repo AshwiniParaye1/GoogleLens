@@ -17,6 +17,9 @@ const Header = ({
 }: {
   variant?: "home" | "lens" | "results";
 }) => {
+  const username = "Guest User";
+  const email = "guest@example.com";
+
   return (
     <header className="flex justify-between items-center p-4">
       {variant === "home" ? (
@@ -27,7 +30,7 @@ const Header = ({
 
           <GoogleSearchButton />
 
-          <AccountMenu />
+          <AccountMenu username={username} email={email} />
         </>
       ) : (
         <>
@@ -35,7 +38,7 @@ const Header = ({
             <FlaskConical className="text-blue-400" size={28} />
           </Link>
           <div></div>
-          <AccountMenu />
+          <AccountMenu username={username} email={email} />
         </>
       )}
     </header>
