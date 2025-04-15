@@ -1,7 +1,6 @@
 //src/components/Header.tsx
 
 import { FlaskConical, Star } from "lucide-react";
-import { Link } from "react-router-dom";
 import AccountMenu from "./AccountMenu";
 
 const GoogleSearchButton = () => (
@@ -24,7 +23,7 @@ const Header = ({
 
   return (
     <header className="flex justify-between items-center p-4">
-      {variant === "home" ? (
+      {variant === "home" && (
         <>
           <div className="flex items-center justify-center w-10 h-10">
             <FlaskConical className="text-blue-400" size={28} />
@@ -32,14 +31,6 @@ const Header = ({
 
           <GoogleSearchButton />
 
-          <AccountMenu username={username} email={email} />
-        </>
-      ) : (
-        <>
-          <Link to="/">
-            <FlaskConical className="text-blue-400" size={28} />
-          </Link>
-          <div></div>
           <AccountMenu username={username} email={email} />
         </>
       )}
