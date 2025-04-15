@@ -5,7 +5,7 @@ import AccountMenu from "./AccountMenu";
 
 const GoogleSearchButton = () => (
   <div className="bg-google-card rounded-md text-white px-2 py-2 flex items-center gap-2">
-    <div className="bg-gray-900 rounded-md flex flex-row p-2">
+    <div className="bg-gray-900 rounded-md flex flex-row px-2 py-1.5 mr-1">
       <div className="mr-2 self-center">
         <img src="/google.png" width={18} height={18} alt="star" />
       </div>
