@@ -1,19 +1,21 @@
 //src/components/CameraCapture.tsx
 
+"use client";
+
 import { useAppContext } from "@/context/AppContext";
-import { Camera, Crop, Upload, X } from "lucide-react";
+import { ArrowLeft, MoreHorizontal, RotateCcw } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { BsTranslate } from "react-icons/bs";
+import { IoSearchOutline } from "react-icons/io5";
+import { MdOutlineBackpack } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 const CameraCapture = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isCameraActive, setIsCameraActive] = useState(false);
-  const [capturedImage, setCapturedImage] = useState<string | null>(null);
-  const [isCropping, setIsCropping] = useState(false);
-  const { setSelectedImage } = useAppContext();
+  const { setSearchQuery, setSelectedImage } = useAppContext();
   const navigate = useNavigate();
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     let stream: MediaStream | null = null;
@@ -32,16 +34,15 @@ const CameraCapture = () => {
       }
     };
 
-    if (isCameraActive) {
-      startCamera();
-    }
+    startCamera();
+    setIsCameraActive(true);
 
     return () => {
       if (stream) {
         stream.getTracks().forEach((track) => track.stop());
       }
     };
-  }, [isCameraActive]);
+  }, []);
 
   const takePhoto = () => {
     if (videoRef.current && canvasRef.current) {
@@ -55,106 +56,107 @@ const CameraCapture = () => {
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
         const imageDataURL = canvas.toDataURL("image/png");
-        setCapturedImage(imageDataURL);
-        setIsCameraActive(false);
+        setSelectedImage(imageDataURL);
+        navigate("/lens/results");
       }
     }
   };
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        if (event.target?.result) {
-          setCapturedImage(event.target.result as string);
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleCrop = () => {
-    setIsCropping(!isCropping);
-    // Here we would implement actual cropping functionality
-  };
-
-  const handleSearch = () => {
-    if (capturedImage) {
-      setSelectedImage(capturedImage);
-      navigate("/lens/results");
-    }
-  };
-
-  const triggerFileUpload = () => {
-    fileInputRef.current?.click();
-  };
-
   return (
-    <div className="flex flex-col h-[calc(100vh-120px)]">
-      <div className="flex justify-between items-center p-4">
-        <button onClick={() => navigate("/")} className="text-white">
-          <X size={24} />
+    <div className="relative h-screen bg-black">
+      {/* Header */}
+      <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between p-4 bg-transparent">
+        <button
+          onClick={() => navigate("/")}
+          className="text-white hover:opacity-80"
+        >
+          <ArrowLeft size={24} />
         </button>
+        <h1 className="text-2xl text-white font-normal">Google Lens</h1>
         <div className="flex gap-4">
-          <button onClick={triggerFileUpload} className="text-white">
-            <Upload size={24} />
+          <button className="text-white hover:opacity-80">
+            <RotateCcw size={22} />
           </button>
-          <input
-            type="file"
-            ref={fileInputRef}
-            onChange={handleFileUpload}
-            accept="image/*"
-            className="hidden"
-          />
-          {capturedImage && (
-            <button onClick={handleCrop} className="text-white">
-              <Crop size={24} />
-            </button>
-          )}
+          <button className="text-white hover:opacity-80">
+            <MoreHorizontal size={24} />
+          </button>
         </div>
       </div>
 
-      <div className="flex-1 flex items-center justify-center bg-black/50 relative">
-        {isCameraActive ? (
+      {/* Camera View */}
+      <div className="relative h-full">
+        {isCameraActive && (
           <video
             ref={videoRef}
             autoPlay
             playsInline
-            className="max-h-full max-w-full"
+            className="w-full h-full object-cover"
           />
-        ) : capturedImage ? (
-          <img
-            src={capturedImage}
-            alt="Captured"
-            className={`max-h-full max-w-full ${
-              isCropping ? "border-2 border-dashed border-white" : ""
-            }`}
-          />
-        ) : (
-          <div className="text-white text-center p-8">
-            <p>Tap the camera button to take a photo or upload an image</p>
-          </div>
         )}
         <canvas ref={canvasRef} className="hidden" />
-      </div>
 
-      <div className="p-4 flex justify-center">
-        {!capturedImage ? (
+        {/* Camera Frame Overlay */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          {/* Main frame area */}
+          <div className="w-full h-full flex items-center justify-center">
+            {/* Curved brackets for the spacebar area */}
+            <div className="absolute bottom-[30%] w-[70%] flex justify-between">
+              {/* Left bracket */}
+              <div className="w-[50px] h-[100px] border-l-2 border-b-2 border-white/40 rounded-bl-[40px]"></div>
+              {/* Right bracket */}
+              <div className="w-[50px] h-[100px] border-r-2 border-b-2 border-white/40 rounded-br-[40px]"></div>
+            </div>
+
+            {/* Curved brackets for the keyboard area */}
+            <div className="absolute top-[30%] w-[40%] flex justify-between">
+              {/* Left bracket */}
+              <div className="w-[20px] h-[100px] border-l-2 border-t-2 border-white/40 rounded-tl-[30px]"></div>
+              {/* Right bracket */}
+              <div className="w-[20px] h-[100px] border-r-2 border-t-2 border-white/40 rounded-tr-[30px]"></div>
+            </div>
+          </div>
+        </div>
+
+        {/* Library Button */}
+        <button className="absolute left-6 bottom-32 w-16 h-16 rounded-lg bg-transparent flex items-center justify-center">
+          <div className="w-12 h-12 border-2 border-white rounded-md flex items-center justify-center overflow-hidden">
+            <div className="w-10 h-10 bg-gray-800 flex items-center justify-center">
+              <div className="grid grid-cols-3 gap-0.5">
+                {[...Array(9)].map((_, i) => (
+                  <div key={i} className="w-2 h-2 bg-gray-600"></div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </button>
+
+        {/* Center Search Button */}
+        <div className="absolute bottom-28 left-1/2 -translate-x-1/2">
           <button
-            onClick={() => setIsCameraActive(true)}
-            className="bg-google-blue text-white p-4 rounded-full"
+            onClick={takePhoto}
+            className="w-24 h-24 rounded-full bg-white flex items-center justify-center shadow-lg border-4 border-white/80"
           >
-            <Camera size={28} />
+            <div className="w-16 h-16 rounded-full flex items-center justify-center">
+              <IoSearchOutline size={28} className="text-gray-700" />
+            </div>
           </button>
-        ) : (
-          <button
-            onClick={handleSearch}
-            className="bg-google-blue text-white py-2 px-8 rounded-full font-medium"
-          >
-            Search
+        </div>
+
+        {/* Bottom Navigation */}
+        <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-4 px-4">
+          <button className="flex items-center gap-2 text-white/90 px-6 py-3 rounded-full bg-black/40 backdrop-blur-md border border-white/10">
+            <BsTranslate size={18} />
+            <span className="text-sm font-normal">Translate</span>
           </button>
-        )}
+          <button className="flex items-center gap-2 text-white/90 px-6 py-3 rounded-full bg-black/40 backdrop-blur-md border border-white/10">
+            <IoSearchOutline size={18} />
+            <span className="text-sm font-normal">Search</span>
+          </button>
+          <button className="flex items-center gap-2 text-white/90 px-6 py-3 rounded-full bg-black/40 backdrop-blur-md border border-white/10">
+            <MdOutlineBackpack size={18} />
+            <span className="text-sm font-normal">Homework</span>
+          </button>
+        </div>
       </div>
     </div>
   );
