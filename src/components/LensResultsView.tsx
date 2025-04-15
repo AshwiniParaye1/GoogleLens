@@ -1,4 +1,4 @@
-//src/components/LensResultsView.tsx
+// src/components/LensResultsView.tsx
 
 "use client";
 
@@ -165,7 +165,7 @@ const LensResultsView = () => {
           </div>
         </div>
 
-        {/* More results would go here */}
+        {/* Spacer */}
         <div className="h-40"></div>
       </div>
 
@@ -187,18 +187,15 @@ const LensResultsView = () => {
 
       {/* Bottom navigation */}
       <div className="fixed bottom-0 left-0 right-0 flex items-center justify-between bg-[#202124] border-t border-gray-800 px-6 py-3">
-        <button>
-          <ArrowLeft size={20} className="text-gray-400" />
-        </button>
+        <Link to="/" className="text-gray-400">
+          <ArrowLeft size={20} />
+        </Link>
         <button>
           <ArrowRight size={20} className="text-gray-400" />
         </button>
-        <button>
-          <Home size={20} className="text-gray-400" />
-        </button>
-        <button className="w-6 h-6 rounded-sm border border-gray-400 flex items-center justify-center">
-          <span className="text-gray-400 text-xs">1</span>
-        </button>
+        <Link to="/" className="text-gray-400">
+          <Home size={20} />
+        </Link>
       </div>
     </div>
   );
