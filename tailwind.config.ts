@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 import animate from "tailwindcss-animate";
 
-const config: Config = {
+export default {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
@@ -25,13 +25,6 @@ const config: Config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        "google-dark": "#202124",
-        "google-card": "#303134",
-        "google-card-hover": "#3c4043",
-        "google-blue": "#8ab4f8",
-        "google-yellow": "#f9ab00",
-        "google-green": "#1e8e3e",
-        "google-red": "#ea4335",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))"
@@ -59,7 +52,25 @@ const config: Config = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))"
-        }
+        },
+        sidebar: {
+          DEFAULT: "hsl(var(--sidebar-background))",
+          foreground: "hsl(var(--sidebar-foreground))",
+          primary: "hsl(var(--sidebar-primary))",
+          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
+          accent: "hsl(var(--sidebar-accent))",
+          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
+          border: "hsl(var(--sidebar-border))",
+          ring: "hsl(var(--sidebar-ring))"
+        },
+        // Adding Google-themed colors
+        "google-dark": "#202124",
+        "google-card": "#303134",
+        "google-card-hover": "#3c4043",
+        "google-blue": "#8ab4f8",
+        "google-red": "#ea4335",
+        "google-yellow": "#fbbc04",
+        "google-green": "#34a853"
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -96,6 +107,4 @@ const config: Config = {
     }
   },
   plugins: [animate]
-};
-
-export default config;
+} satisfies Config;

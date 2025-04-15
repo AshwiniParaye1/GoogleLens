@@ -1,12 +1,8 @@
-//src/context/AppContext.tsx
-
 import { createContext, ReactNode, useContext, useState } from "react";
 
 type AppContextType = {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
-  selectedImage: string | null;
-  setSelectedImage: (image: string | null) => void;
   isListening: boolean;
   setIsListening: (listening: boolean) => void;
 };
@@ -15,7 +11,6 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isListening, setIsListening] = useState(false);
 
   return (
@@ -23,8 +18,6 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       value={{
         searchQuery,
         setSearchQuery,
-        selectedImage,
-        setSelectedImage,
         isListening,
         setIsListening
       }}
