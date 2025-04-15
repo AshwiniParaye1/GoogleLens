@@ -1,6 +1,6 @@
 const NewsFeed = () => {
   return (
-    <div className="google-card mt-4 overflow-hidden">
+    <div className="news-card mt-4 overflow-hidden">
       <img
         src="/public/ratan-tata.jpg"
         alt="News image"
