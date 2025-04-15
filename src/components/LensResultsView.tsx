@@ -1,7 +1,8 @@
+//src/components/LensResultsView.tsx
 
 import { useAppContext } from "@/context/AppContext";
 import { searchResults } from "@/data/mockData";
-import { ArrowLeft, Share2, MoreVertical, Search } from "lucide-react";
+import { ArrowLeft, MoreVertical, Search, Share2 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const LensResultsView = () => {
@@ -59,7 +60,9 @@ const LensResultsView = () => {
               <button
                 key={tab}
                 className={`px-4 py-2 rounded-full whitespace-nowrap ${
-                  tab === "All" ? "bg-google-blue text-white" : "bg-google-card text-gray-300"
+                  tab === "All"
+                    ? "bg-google-blue text-white"
+                    : "bg-google-card text-gray-300"
                 }`}
               >
                 {tab}
@@ -95,7 +98,9 @@ const LensResultsView = () => {
               />
               <div className="p-3">
                 <h3 className="font-medium text-white">{result.title}</h3>
-                <p className="text-sm text-gray-300 mt-1">{result.description}</p>
+                <p className="text-sm text-gray-300 mt-1">
+                  {result.description}
+                </p>
                 <p className="text-xs text-google-blue mt-2">{result.source}</p>
               </div>
             </div>
@@ -104,7 +109,9 @@ const LensResultsView = () => {
       </section>
 
       <section className="p-4">
-        <h2 className="text-white font-medium text-lg mb-3">People also search for</h2>
+        <h2 className="text-white font-medium text-lg mb-3">
+          People also search for
+        </h2>
         <div className="flex flex-wrap gap-2">
           {searchResults.relatedSearches.map((term, index) => (
             <button

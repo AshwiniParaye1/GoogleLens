@@ -1,3 +1,5 @@
+//src/components/AirQualityWidget.tsx
+
 import { Wind } from "lucide-react";
 
 const AirQualityWidget = () => {

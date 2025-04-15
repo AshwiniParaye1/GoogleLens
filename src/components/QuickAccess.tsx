@@ -1,3 +1,5 @@
+//src/components/QuickAccess.tsx
+
 import { GraduationCap, Languages } from "lucide-react";
 import { MdImageSearch, MdOutlineMusicNote } from "react-icons/md";
 

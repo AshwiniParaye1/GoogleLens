@@ -1,3 +1,5 @@
+//src/pages/HomePage.tsx
+
 import AirQualityWidget from "@/components/AirQualityWidget";
 import BottomNav from "@/components/BottomNav";
 import Header from "@/components/Header";

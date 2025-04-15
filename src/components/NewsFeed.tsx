@@ -1,3 +1,5 @@
+//src/components/NewsFeed.tsx
+
 const NewsFeed = () => {
   return (
     <div className="news-card mt-4 overflow-hidden">

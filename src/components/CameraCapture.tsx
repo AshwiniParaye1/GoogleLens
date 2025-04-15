@@ -1,8 +1,9 @@
+//src/components/CameraCapture.tsx
 
-import { useRef, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { X, Upload, Camera, Crop } from "lucide-react";
 import { useAppContext } from "@/context/AppContext";
+import { Camera, Crop, Upload, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CameraCapture = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -22,7 +23,7 @@ const CameraCapture = () => {
         stream = await navigator.mediaDevices.getUserMedia({
           video: { facingMode: "environment" }
         });
-        
+
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
         }
@@ -37,7 +38,7 @@ const CameraCapture = () => {
 
     return () => {
       if (stream) {
-        stream.getTracks().forEach(track => track.stop());
+        stream.getTracks().forEach((track) => track.stop());
       }
     };
   }, [isCameraActive]);
@@ -47,12 +48,12 @@ const CameraCapture = () => {
       const video = videoRef.current;
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d");
-      
+
       if (context) {
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        
+
         const imageDataURL = canvas.toDataURL("image/png");
         setCapturedImage(imageDataURL);
         setIsCameraActive(false);
@@ -126,7 +127,9 @@ const CameraCapture = () => {
           <img
             src={capturedImage}
             alt="Captured"
-            className={`max-h-full max-w-full ${isCropping ? 'border-2 border-dashed border-white' : ''}`}
+            className={`max-h-full max-w-full ${
+              isCropping ? "border-2 border-dashed border-white" : ""
+            }`}
           />
         ) : (
           <div className="text-white text-center p-8">

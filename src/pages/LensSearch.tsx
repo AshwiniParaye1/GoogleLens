@@ -1,7 +1,8 @@
+//src/pages/LensSearch.tsx
 
-import { useEffect } from "react";
 import CameraCapture from "@/components/CameraCapture";
 import Header from "@/components/Header";
+import { useEffect } from "react";
 
 const LensSearch = () => {
   useEffect(() => {

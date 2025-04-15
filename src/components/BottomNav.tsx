@@ -1,3 +1,5 @@
+//src/components/BottomNav.tsx
+
 import { Menu } from "lucide-react";
 import { useState } from "react";
 import { AiOutlineBell } from "react-icons/ai";

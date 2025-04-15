@@ -1,8 +1,8 @@
+//src/pages/LensResults.tsx
 
-import { useEffect } from "react";
-import LensResultsView from "@/components/LensResultsView";
-import Header from "@/components/Header";
 import BottomNav from "@/components/BottomNav";
+import LensResultsView from "@/components/LensResultsView";
+import { useEffect } from "react";
 
 const LensResults = () => {
   useEffect(() => {

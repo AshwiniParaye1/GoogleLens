@@ -1,3 +1,5 @@
+//src/components/WeatherWidget.tsx
+
 import { IoMdMoon } from "react-icons/io";
 
 const WeatherWidget = () => {

@@ -1,14 +1,15 @@
+//src/App.tsx
 
-import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
+import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import NotFound from "./pages/NotFound";
-import LensSearch from "./pages/LensSearch";
-import LensResults from "./pages/LensResults";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AppProvider } from "./context/AppContext";
+import HomePage from "./pages/HomePage";
+import LensResults from "./pages/LensResults";
+import LensSearch from "./pages/LensSearch";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
