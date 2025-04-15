@@ -1,6 +1,7 @@
 //src/pages/LensResults.tsx
 
-import BottomNav from "@/components/BottomNav";
+"use client";
+
 import LensResultsView from "@/components/LensResultsView";
 import { useEffect } from "react";
 
@@ -10,9 +11,8 @@ const LensResults = () => {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-google-dark">
+    <div className="flex flex-col min-h-screen bg-black">
       <LensResultsView />
-      <BottomNav />
     </div>
   );
 };
