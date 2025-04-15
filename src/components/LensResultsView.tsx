@@ -12,6 +12,7 @@ import {
   X
 } from "lucide-react";
 import { useState } from "react";
+import { TbSquareNumber1 } from "react-icons/tb";
 import { Link } from "react-router-dom";
 
 const LensResultsView = () => {
@@ -195,6 +196,9 @@ const LensResultsView = () => {
         </button>
         <Link to="/" className="text-gray-400">
           <Home size={20} />
+        </Link>
+        <Link to="/" className="text-gray-400">
+          <TbSquareNumber1 size={20} />
         </Link>
       </div>
     </div>
