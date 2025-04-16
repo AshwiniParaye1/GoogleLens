@@ -1,20 +1,26 @@
 //src/components/VoiceSearch.tsx
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { useAppContext } from "@/context/AppContext";
 import { ArrowLeft, Globe } from "lucide-react";
 import { useEffect, useState } from "react";
 import { MdOutlineMusicNote } from "react-icons/md";
 import { Sheet, SheetContent } from "./ui/sheet";
 
-// Add interface for SpeechRecognition Web API
+// add interface for SpeechRecognition Web API
+interface SpeechRecognitionResultItem {
+  transcript: string;
+  confidence: number;
+}
+
+interface SpeechRecognitionResult {
+  isFinal: boolean;
+  [index: number]: SpeechRecognitionResultItem;
+}
+
 interface SpeechRecognitionEvent {
   results: {
-    [index: number]: {
-      [index: number]: {
-        transcript: string;
-      };
-    };
+    [index: number]: SpeechRecognitionResult;
   };
 }
 
@@ -35,20 +41,26 @@ interface VoiceSearchProps {
 const VoiceSearch = ({ isOpen, onClose }: VoiceSearchProps) => {
   const { setSearchQuery, isListening, setIsListening } = useAppContext();
   const [dots, setDots] = useState<string[]>([]);
+  const [transcription, setTranscription] = useState<string>("");
 
   useEffect(() => {
     let recognition: SpeechRecognition | null = null;
 
     if (isListening && "webkitSpeechRecognition" in window) {
       recognition = new (window as any).webkitSpeechRecognition();
-      recognition.continuous = false;
-      recognition.interimResults = false;
+      recognition.continuous = true;
+      recognition.interimResults = true;
 
       recognition.onresult = (event: SpeechRecognitionEvent) => {
         const transcript = event.results[0][0].transcript;
-        setSearchQuery(transcript);
-        setIsListening(false);
-        onClose();
+        setTranscription(transcript); // Update transcription in real-time
+
+        // Check if the result is final
+        if (event.results[0].isFinal) {
+          setSearchQuery(transcript);
+          setIsListening(false);
+          onClose();
+        }
       };
 
       recognition.onerror = () => {
@@ -69,6 +81,7 @@ const VoiceSearch = ({ isOpen, onClose }: VoiceSearchProps) => {
   useEffect(() => {
     if (isOpen) {
       setIsListening(true);
+      setTranscription(""); // Reset transcription when opening
 
       // Animate the Google dots
       const colors = ["#4285F4", "#DB4437", "#F4B400", "#0F9D58"];
@@ -109,6 +122,13 @@ const VoiceSearch = ({ isOpen, onClose }: VoiceSearchProps) => {
           {/* Center content */}
           <div className="flex-1 flex flex-col justify-between items-center px-4 py-16">
             <h2 className="text-2xl text-gray-400 font-light">Speak now</h2>
+
+            {/* Show transcription if available */}
+            {transcription && (
+              <div className="mt-6 text-center max-w-md">
+                <p className="text-xl text-white">{transcription}</p>
+              </div>
+            )}
 
             <div className="flex gap-3">
               {dots.map((color, index) => (

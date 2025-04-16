@@ -3,7 +3,7 @@
 import { useAppContext } from "@/context/AppContext";
 import { useToast } from "@/hooks/use-toast";
 import { Mic, Search } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TbCameraPlus } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import VoiceSearch from "./VoiceSearch";
@@ -14,11 +14,18 @@ interface SearchBarProps {
 }
 
 const SearchBar = ({ variant = "home", initialValue = "" }: SearchBarProps) => {
-  const { searchQuery, setSearchQuery } = useAppContext();
+  const { searchQuery, setSearchQuery, isListening } = useAppContext();
   const [localQuery, setLocalQuery] = useState(initialValue);
   const [showVoiceSearch, setShowVoiceSearch] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  // Update local query when searchQuery changes (from voice input)
+  useEffect(() => {
+    if (searchQuery) {
+      setLocalQuery(searchQuery);
+    }
+  }, [searchQuery]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,10 +61,16 @@ const SearchBar = ({ variant = "home", initialValue = "" }: SearchBarProps) => {
               <button
                 type="button"
                 onClick={handleMicClick}
-                className="p-1 hover:bg-google-card-hover rounded-full transition-colors"
+                className={`p-1 hover:bg-google-card-hover rounded-full transition-colors ${
+                  isListening ? "bg-red-500" : ""
+                }`}
               >
                 <Mic
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className={`${
+                    isListening
+                      ? "text-white"
+                      : "text-gray-400 hover:text-white"
+                  } transition-colors`}
                   size={20}
                 />
               </button>
