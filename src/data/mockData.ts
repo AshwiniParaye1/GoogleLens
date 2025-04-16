@@ -50,7 +50,7 @@ export const newsItems = [
     id: 1,
     title:
       "This superstar was Ratan Tata's closest friend, shared same room, went for picnics, listened songs together",
-    imageUrl: "/lovable-uploads/2e215e33-6af1-4244-9ab7-b7d4fc66da37.png",
+    imageUrl: "/ratan-tata.jpg",
     source: "Times of India",
     timeAgo: "3 hours ago"
   },
