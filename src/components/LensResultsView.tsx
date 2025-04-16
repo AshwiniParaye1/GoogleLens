@@ -1,5 +1,7 @@
 // src/components/LensResultsView.tsx
 
+// src/components/LensResultsView.tsx
+
 "use client";
 
 import { useAppContext } from "@/context/AppContext";

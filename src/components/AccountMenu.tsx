@@ -2,6 +2,7 @@
 
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
 import {
   ChevronDown,
   Clock,
@@ -14,6 +15,7 @@ import {
   Shield,
   User
 } from "lucide-react";
+import type React from "react";
 
 interface AccountMenuProps {
   username: string;
@@ -26,9 +28,12 @@ const AccountMenu = ({ username, email }: AccountMenuProps) => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <div className="w-8 h-8 rounded-full bg-gray-400 text-white font-bold text-sm flex items-center justify-center cursor-pointer">
+        <button
+          className="w-8 h-8 rounded-full bg-gray-400 text-white font-bold text-sm flex items-center justify-center cursor-pointer"
+          aria-label="Open account menu"
+        >
           {initial}
-        </div>
+        </button>
       </SheetTrigger>
 
       <SheetContent
@@ -62,36 +67,41 @@ const AccountMenu = ({ username, email }: AccountMenuProps) => {
 
         <Separator className="bg-gray-700" />
 
-        <div className="py-1">
-          <MenuItem icon={<Glasses size={16} />} label="Turn on Incognito" />
-          <Separator className="bg-gray-700" />
-          <MenuItem
-            icon={<Clock size={16} />}
-            label="Search history"
-            rightLabel="Saving"
-          />
-          <MenuItem icon={null} label="Delete last 15 mins" indent />
-          <Separator className="bg-gray-700" />
-          <MenuItem icon={<Shield size={16} />} label="SafeSearch" />
-          <MenuItem icon={<Package size={16} />} label="Interests" />
-          <MenuItem icon={<Key size={16} />} label="Passwords" />
-          <MenuItem icon={<User size={16} />} label="Your profile" />
-          <MenuItem
-            icon={<Search size={16} />}
-            label="Search personalisation"
-          />
-          <Separator className="bg-gray-700" />
-          <MenuItem icon={<Settings size={16} />} label="Settings" />
-          <MenuItem icon={<HelpCircle size={16} />} label="Help and feedback" />
-        </div>
+        <nav>
+          <ul className="py-1">
+            <MenuItem icon={<Glasses size={16} />} label="Turn on Incognito" />
+            <Separator className="bg-gray-700" />
+            <MenuItem
+              icon={<Clock size={16} />}
+              label="Search history"
+              rightLabel="Saving"
+            />
+            <MenuItem icon={null} label="Delete last 15 mins" indent />
+            <Separator className="bg-gray-700" />
+            <MenuItem icon={<Shield size={16} />} label="SafeSearch" />
+            <MenuItem icon={<Package size={16} />} label="Interests" />
+            <MenuItem icon={<Key size={16} />} label="Passwords" />
+            <MenuItem icon={<User size={16} />} label="Your profile" />
+            <MenuItem
+              icon={<Search size={16} />}
+              label="Search personalisation"
+            />
+            <Separator className="bg-gray-700" />
+            <MenuItem icon={<Settings size={16} />} label="Settings" />
+            <MenuItem
+              icon={<HelpCircle size={16} />}
+              label="Help and feedback"
+            />
+          </ul>
+        </nav>
 
         <Separator className="bg-gray-700" />
 
-        <div className="p-3 flex justify-center items-center gap-2 text-xs text-gray-400">
+        <footer className="p-3 flex justify-center items-center gap-2 text-xs text-gray-400">
           <span>Privacy Policy</span>
           <span className="text-gray-600">•</span>
           <span>Terms of Service</span>
-        </div>
+        </footer>
       </SheetContent>
     </Sheet>
   );
@@ -111,19 +121,22 @@ const MenuItem = ({
   indent = false
 }: MenuItemProps) => {
   return (
-    <div
-      className={`flex items-center justify-between px-5 py-2 hover:bg-gray-700 cursor-pointer ${
-        indent ? "pl-14" : ""
-      }`}
-    >
-      <div className="flex items-center gap-4">
-        {icon && <div className="text-gray-400">{icon}</div>}
-        <span className="text-sm">{label}</span>
-      </div>
-      {rightLabel && (
-        <span className="text-gray-400 text-xs">{rightLabel}</span>
-      )}
-    </div>
+    <li>
+      <button
+        className={cn(
+          "flex items-center justify-between w-full px-5 py-2 hover:bg-gray-700 cursor-pointer text-left",
+          indent && "pl-14"
+        )}
+      >
+        <div className="flex items-center gap-4">
+          {icon && <div className="text-gray-400">{icon}</div>}
+          <span className="text-sm">{label}</span>
+        </div>
+        {rightLabel && (
+          <span className="text-gray-400 text-xs">{rightLabel}</span>
+        )}
+      </button>
+    </li>
   );
 };
 
