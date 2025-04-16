@@ -1,15 +1,9 @@
-import { CapacitorConfig } from "@capacitor/cli";
+import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: "app.f31c129162a24a76ab8dab5161b73953",
-  appName: "google-lens",
-  webDir: "dist",
-  plugins: {
-    SplashScreen: {
-      launchShowDuration: 2000,
-      backgroundColor: "#202124"
-    }
-  }
+  appId: 'com.example.app',
+  appName: 'google',
+  webDir: 'dist'
 };
 
 export default config;

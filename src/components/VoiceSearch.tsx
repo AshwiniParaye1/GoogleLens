@@ -1,5 +1,6 @@
 //src/components/VoiceSearch.tsx
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 "use client";
 
 import { useAppContext } from "@/context/AppContext";
@@ -8,7 +9,7 @@ import { useEffect, useState } from "react";
 import { MdOutlineMusicNote } from "react-icons/md";
 import { Sheet, SheetContent } from "./ui/sheet";
 
-// add interfaces for SpeechRecognition Web API
+// Interface for Web Speech API
 interface SpeechRecognitionResultItem {
   transcript: string;
   confidence: number;

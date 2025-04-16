@@ -3,62 +3,67 @@
 "use client";
 
 import { useAppContext } from "@/context/AppContext";
+import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 import { ArrowLeft, MoreHorizontal, RotateCcw } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { BsTranslate } from "react-icons/bs";
 import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineBackpack } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 const CameraCapture = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isCameraActive, setIsCameraActive] = useState(false);
   const { setSearchQuery, setSelectedImage } = useAppContext();
   const navigate = useNavigate();
 
   useEffect(() => {
-    let stream: MediaStream | null = null;
-
-    const startCamera = async () => {
-      try {
-        stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "environment" }
-        });
-
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
-      } catch (err) {
-        console.error("Error accessing camera:", err);
-      }
-    };
-
-    startCamera();
+    // Set camera as active when component mounts
     setIsCameraActive(true);
-
-    return () => {
-      if (stream) {
-        stream.getTracks().forEach((track) => track.stop());
-      }
-    };
   }, []);
 
-  const takePhoto = () => {
-    if (videoRef.current && canvasRef.current) {
-      const video = videoRef.current;
-      const canvas = canvasRef.current;
-      const context = canvas.getContext("2d");
+  const takePhoto = async () => {
+    try {
+      // Use Capacitor Camera API to take a photo
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.DataUrl,
+        source: CameraSource.Camera,
+        promptLabelHeader: "Take a photo",
+        promptLabelCancel: "Cancel",
+        promptLabelPhoto: "Camera"
+      });
 
-      if (context) {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-        const imageDataURL = canvas.toDataURL("image/png");
-        setSelectedImage(imageDataURL);
+      // If we got an image, set it and navigate to results
+      if (image.dataUrl) {
+        setSelectedImage(image.dataUrl);
         navigate("/lens/results");
       }
+    } catch (error) {
+      console.error("Error taking photo:", error);
+    }
+  };
+
+  const openGallery = async () => {
+    try {
+      // Use Capacitor Camera API to select from gallery
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.DataUrl,
+        source: CameraSource.Photos,
+        promptLabelHeader: "Select a photo",
+        promptLabelCancel: "Cancel",
+        promptLabelPhoto: "Gallery"
+      });
+
+      // If we got an image, set it and navigate to results
+      if (image.dataUrl) {
+        setSelectedImage(image.dataUrl);
+        navigate("/lens/results");
+      }
+    } catch (error) {
+      console.error("Error selecting photo:", error);
     }
   };
 
@@ -83,17 +88,13 @@ const CameraCapture = () => {
         </div>
       </div>
 
-      {/* Camera View */}
-      <div className="relative h-full">
-        {isCameraActive && (
-          <video
-            ref={videoRef}
-            autoPlay
-            playsInline
-            className="w-full h-full object-cover"
-          />
-        )}
-        <canvas ref={canvasRef} className="hidden" />
+      {/* Camera View - We don't need to show a video feed with Capacitor */}
+      <div className="relative h-full flex items-center justify-center">
+        <div className="text-white text-center">
+          {isCameraActive && (
+            <div className="text-lg">Tap the search button to take a photo</div>
+          )}
+        </div>
 
         {/* Camera Frame Overlay */}
         <div className="absolute inset-0 flex items-center justify-center">
@@ -118,7 +119,10 @@ const CameraCapture = () => {
         </div>
 
         {/* Library Button */}
-        <button className="absolute left-6 bottom-32 w-16 h-16 rounded-lg bg-transparent flex items-center justify-center">
+        <button
+          onClick={openGallery}
+          className="absolute left-6 bottom-32 w-16 h-16 rounded-lg bg-transparent flex items-center justify-center"
+        >
           <div className="w-12 h-12 border-2 border-white rounded-md flex items-center justify-center overflow-hidden">
             <div className="w-10 h-10 bg-gray-800 flex items-center justify-center">
               <div className="grid grid-cols-3 gap-0.5">
